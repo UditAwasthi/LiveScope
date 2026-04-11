@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "ignoreDeprecations": "6.0"
+  }
+}
