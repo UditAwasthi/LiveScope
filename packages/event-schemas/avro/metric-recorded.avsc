@@ -1,0 +1,38 @@
+{
+  "type": "record",
+  "name": "MetricRecordedEvent",
+  "namespace": "com.livescope.events",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "type", "type": "string" },
+    { "name": "entity", "type": "string" },
+    { "name": "entityId", "type": "string" },
+    { "name": "timestamp", "type": "long" },
+    {
+      "name": "vectorClock",
+      "type": {
+        "type": "map",
+        "values": "long"
+      }
+    },
+    {
+      "name": "payload",
+      "type": {
+        "type": "record",
+        "name": "MetricPayload",
+        "fields": [
+          { "name": "metricName", "type": "string" },
+          { "name": "value", "type": "double" },
+          {
+            "name": "tags",
+            "type": {
+              "type": "map",
+              "values": "string"
+            },
+            "default": {}
+          }
+        ]
+      }
+    }
+  ]
+}
