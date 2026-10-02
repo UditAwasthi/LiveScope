@@ -1,20 +1,22 @@
 {
   "name": "livescope",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "AI-native reliability platform. Observe. Reproduce. Fix. Verify.",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "seed": "node scripts/seed-events.js",
+    "load-test": "node scripts/load-test.js"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
+    "@types/node": "catalog:",
     "turbo": "^2.9.6",
-    "typescript": "^6.0.2"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

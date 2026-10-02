@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LiveScope | Observe. Reproduce. Fix. Verify.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #07080a;
+      color: #ffffff;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .font-mono {
+      font-family: 'Geist Mono', monospace;
+    }
+    .text-warm-gradient {
+      background: linear-gradient(to right, #ff2f3a, #ff6b4a, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .aurora-blur {
+      position: absolute;
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 47, 58, 0.15) 0%, rgba(255, 107, 74, 0.05) 50%, transparent 100%);
+      filter: blur(100px);
+      z-index: -1;
+    }
+    .glass-panel {
+      background: rgba(15, 17, 20, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+    }
+    .keycap-button {
+      background-color: #e6e6e6;
+      color: #2f3031;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 0 0 #b3b3b3, 0 8px 16px rgba(0,0,0,0.4);
+    }
+    .keycap-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 0 #b3b3b3, 0 4px 8px rgba(0,0,0,0.4);
+    }
+    .command-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .nav-pill {
+      background: rgba(15, 17, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+    }
+    .loop-step:hover .loop-number {
+      color: #ff6b4a;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen relative flex flex-col" data-sd-id="1">
+    <!-- Background Effects -->
+    <div class="aurora-blur top-[-200px] left-[-100px]" data-sd-id="2"></div>
+    <div class="aurora-blur bottom-[-200px] right-[-100px] opacity-50" data-sd-id="3"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 nav-pill flex items-center gap-12 w-fit" data-sd-id="4">
+      <div class="flex items-center gap-2" data-sd-id="5">
+        <div class="w-5 h-5 bg-warm-gradient rounded-sm" data-sd-id="6"></div>
+        <span class="font-semibold tracking-tight" data-sd-id="7">LiveScope</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm text-gray-400 font-medium" data-sd-id="8">
+        <a href="#what" id="nav-what-link" class="hover:text-white transition-colors" data-sd-id="9">What it does</a>
+        <a href="#loop" id="nav-loop-link" class="hover:text-white transition-colors" data-sd-id="10">The loop</a>
+        <a href="#planes" id="nav-planes-link" class="hover:text-white transition-colors" data-sd-id="11">Planes</a>
+      </div>
+      <a href="#" id="nav-cta-link" class="bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-2 rounded-full border border-white/10 transition-all font-medium" data-sd-id="12">Documentation</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-48 pb-32 px-6 flex flex-col items-center text-center relative" data-sd-id="13">
+      <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-6 flex items-center gap-2" data-sd-id="14">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ff2f3a]" data-sd-id="15"></span> System Operational
+      </div>
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl leading-[1.1] mb-8" data-sd-id="16">
+        Reliability is not an accident.<br>
+        It is a <span class="text-warm-gradient" data-sd-id="17">repeatable</span> loop.
+      </h1>
+      <p class="text-lg md:text-xl text-gray-400 max-w-2xl mb-12" data-sd-id="18">
+        Observe production state, reproduce failures in local contexts, and verify fixes before they ever hit a customer.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center gap-8" data-sd-id="19">
+        <a href="#loop" id="hero-loop-btn" class="keycap-button px-8 py-3.5 text-base" data-sd-id="20">Read the loop</a>
+        <a href="#planes" id="hero-planes-btn" class="text-white font-medium hover:text-gray-300 transition-colors flex items-center gap-2 group" data-sd-id="21">
+          See the planes
+          <iconify-icon icon="lucide:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+        </a>
+      </div>
+      <div class="mt-16 font-mono text-[11px] text-gray-600" data-sd-id="22">
+        $ livescope --observe --target prod-cluster-01
+      </div>
+    </header>
+
+    <!-- The Loop Section -->
+    <section id="loop" class="max-w-6xl mx-auto px-6 py-24 w-full" data-sd-id="23">
+      <div class="glass-panel p-1 md:p-2" data-sd-id="24">
+        <div class="bg-[#0b0c0e] rounded-[12px] p-8 md:p-12" data-sd-id="25">
+          <div class="flex flex-col md:flex-row justify-between items-start mb-16 gap-8" data-sd-id="26">
+            <div data-sd-id="27">
+              <h2 class="text-3xl font-semibold mb-4" data-sd-id="28">The Reliability Loop</h2>
+              <p class="text-gray-500 max-w-md" data-sd-id="29">A continuous cycle of engineering rigor designed to eliminate regression and minimize MTTR.</p>
+            </div>
+            <div class="font-mono text-xs text-gray-500" data-sd-id="30">
+              TYPE: SEQUENTIAL_PROCESS<br>
+              STATUS: ACTIVE
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8" data-sd-id="31">
+            <div class="loop-step" data-sd-id="32">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="33">01 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="34">Observe</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="35">Real-time instrumentation of production services without byte-code overhead.</p>
+            </div>
+            <div class="loop-step" data-sd-id="36">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="37">02 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="38">Detect</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="39">Automated anomaly detection across distributed trace boundaries.</p>
+            </div>
+            <div class="loop-step" data-sd-id="40">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="41">03 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="42">Investigate</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="43">Deep-dive into the state of the machine at the moment of failure.</p>
+            </div>
+            <div class="loop-step" data-sd-id="44">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="45">04 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="46">Reconstruct</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="47">Mirror the production environment locally to isolate the specific bug.</p>
+            </div>
+            <div class="loop-step" data-sd-id="48">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="49">05 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="50">Compare Fixes</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="51">Run multiple resolution strategies against the same failure context.</p>
+            </div>
+            <div class="loop-step" data-sd-id="52">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="53">06 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="54">Execute</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="55">Deploy the validated fix with cryptographic proof of resolution.</p>
+            </div>
+            <div class="loop-step" data-sd-id="56">
+              <div class="loop-number font-mono text-gray-700 text-sm mb-4 transition-colors" data-sd-id="57">07 //</div>
+              <h3 class="text-lg font-medium mb-2" data-sd-id="58">Verify</h3>
+              <p class="text-sm text-gray-400 leading-relaxed" data-sd-id="59">Close the loop by confirming the expected state in production.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Three Planes -->
+    <section id="planes" class="max-w-6xl mx-auto px-6 py-24 w-full" data-sd-id="60">
+      <div class="mb-16" data-sd-id="61">
+        <span class="font-mono text-xs text-warm-gradient uppercase tracking-widest" data-sd-id="62">Architecture</span>
+        <h2 class="text-4xl font-bold mt-4" data-sd-id="63">Engineered in three planes.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-sd-id="64">
+        <div class="glass-panel p-8 flex flex-col h-full" data-sd-id="65">
+          <div class="mb-8" data-sd-id="66">
+             <iconify-icon icon="lucide:database" class="text-3xl text-coral-400"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold mb-4" data-sd-id="67">Data Plane</h3>
+          <p class="text-gray-400 text-sm mb-auto" data-sd-id="68">The engine that captures and processes billions of events with sub-millisecond latency.</p>
+          <div class="mt-8 pt-6 border-t border-white/5" data-sd-id="69">
+             <span class="font-mono text-[10px] text-gray-500" data-sd-id="70">TRUST: EBPF NATIVE</span>
+          </div>
+        </div>
+        <div class="glass-panel p-8 flex flex-col h-full" data-sd-id="71">
+          <div class="mb-8" data-sd-id="72">
+             <iconify-icon icon="lucide:layers" class="text-3xl text-coral-400"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold mb-4" data-sd-id="73">Control Plane</h3>
+          <p class="text-gray-400 text-sm mb-auto" data-sd-id="74">Centralized management for policies, security boundaries, and fleet-wide visibility.</p>
+          <div class="mt-8 pt-6 border-t border-white/5" data-sd-id="75">
+             <span class="font-mono text-[10px] text-gray-500" data-sd-id="76">TRUST: ZERO EXFILTRATION</span>
+          </div>
+        </div>
+        <div class="glass-panel p-8 flex flex-col h-full" data-sd-id="77">
+          <div class="mb-8" data-sd-id="78">
+             <iconify-icon icon="lucide:cpu" class="text-3xl text-coral-400"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-semibold mb-4" data-sd-id="79">AI Plane</h3>
+          <p class="text-gray-400 text-sm mb-auto" data-sd-id="80">LLM-assisted reasoning to suggest root cause hypotheses and possible remediations.</p>
+          <div class="mt-8 pt-6 border-t border-white/5" data-sd-id="81">
+             <span class="font-mono text-[10px] text-gray-500" data-sd-id="82">TRUST: LOCAL INFERENCE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What it Answers -->
+    <section class="max-w-4xl mx-auto px-6 py-24 w-full" data-sd-id="83">
+      <div class="glass-panel overflow-hidden" data-sd-id="84">
+        <div class="bg-white/5 border-b border-white/10 px-6 py-4 flex justify-between items-center" data-sd-id="85">
+          <span class="font-mono text-xs text-gray-400" data-sd-id="86">diagnostic_queries.sh</span>
+          <div class="flex gap-1.5" data-sd-id="87">
+            <div class="w-2 h-2 rounded-full bg-white/10" data-sd-id="88"></div>
+            <div class="w-2 h-2 rounded-full bg-white/10" data-sd-id="89"></div>
+            <div class="w-2 h-2 rounded-full bg-white/10" data-sd-id="90"></div>
+          </div>
+        </div>
+        <div class="p-8 md:p-12 space-y-10" data-sd-id="91">
+          <div class="flex gap-6" data-sd-id="92">
+            <span class="text-gray-600 font-mono text-sm" data-sd-id="93">Q:</span>
+            <h4 class="text-lg md:text-xl font-medium" data-sd-id="94">What exactly is broken in this specific request?</h4>
+          </div>
+          <div class="flex gap-6" data-sd-id="95">
+            <span class="text-gray-600 font-mono text-sm" data-sd-id="96">Q:</span>
+            <h4 class="text-lg md:text-xl font-medium" data-sd-id="97">Why did the database driver hang on this specific node?</h4>
+          </div>
+          <div class="flex gap-6" data-sd-id="98">
+            <span class="text-gray-600 font-mono text-sm" data-sd-id="99">Q:</span>
+            <h4 class="text-lg md:text-xl font-medium" data-sd-id="100">What happens to the stack if we change the memory limit?</h4>
+          </div>
+          <div class="flex gap-6" data-sd-id="101">
+            <span class="text-gray-600 font-mono text-sm" data-sd-id="102">Q:</span>
+            <h4 class="text-lg md:text-xl font-medium" data-sd-id="103">Which of these three fixes is the safest for roll-out?</h4>
+          </div>
+          <div class="flex gap-6" data-sd-id="104">
+            <span class="text-gray-600 font-mono text-sm" data-sd-id="105">Q:</span>
+            <h4 class="text-lg md:text-xl font-medium" data-sd-id="106">Did the patch actually work as expected post-deploy?</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-white/5 py-24 px-6" data-sd-id="107">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8" data-sd-id="108">
+        <div class="flex items-center gap-3" data-sd-id="109">
+           <div class="w-6 h-6 bg-warm-gradient rounded-sm" data-sd-id="110"></div>
+           <div data-sd-id="111">
+             <div class="font-bold text-xl tracking-tight leading-none" data-sd-id="112">LiveScope</div>
+             <div class="text-xs text-gray-500 font-mono mt-1" data-sd-id="113">Observe. Reproduce. Fix. Verify.</div>
+           </div>
+        </div>
+        <div class="text-sm text-gray-500 flex gap-12" data-sd-id="114">
+          <a href="#" id="footer-docs-link" class="hover:text-white transition-colors" data-sd-id="115">Documentation</a>
+          <a href="#" id="footer-status-link" class="hover:text-white transition-colors" data-sd-id="116">System Status</a>
+          <a href="#" id="footer-tos-link" class="hover:text-white transition-colors" data-sd-id="117">Terms</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</body></html>

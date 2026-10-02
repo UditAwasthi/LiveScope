@@ -1,13 +1,27 @@
 {
   "name": "dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "vite build",
+    "dev": "vite",
+    "start": "vite preview --host 0.0.0.0 --port 4173",
+    "lint": "tsc --noEmit",
+    "test": "vitest run --root . --config ../../vitest.config.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.33.0"
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "catalog:",
+    "vite": "^6.3.6",
+    "vitest": "catalog:"
+  }
 }

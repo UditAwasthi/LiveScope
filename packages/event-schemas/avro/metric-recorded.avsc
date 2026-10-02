@@ -15,6 +15,10 @@
         "values": "long"
       }
     },
+    { "name": "orgId", "type": "string", "default": "local" },
+    { "name": "projectId", "type": "string", "default": "default" },
+    { "name": "environment", "type": "string", "default": "dev" },
+    { "name": "region", "type": "string", "default": "local" },
     {
       "name": "payload",
       "type": {

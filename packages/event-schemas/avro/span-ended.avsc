@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "SpanEndedEvent",
+  "namespace": "com.livescope.events",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "type", "type": "string" },
+    { "name": "entity", "type": "string" },
+    { "name": "entityId", "type": "string" },
+    { "name": "timestamp", "type": "long" },
+    { "name": "vectorClock", "type": { "type": "map", "values": "long" } },
+    { "name": "orgId", "type": "string", "default": "local" },
+    { "name": "projectId", "type": "string", "default": "default" },
+    { "name": "environment", "type": "string", "default": "dev" },
+    { "name": "region", "type": "string", "default": "local" },
+    {
+      "name": "payload",
+      "type": {
+        "type": "record",
+        "name": "SpanPayload",
+        "fields": [
+          { "name": "operationName", "type": "string" },
+          { "name": "durationMs", "type": "double" },
+          { "name": "traceId", "type": "string" },
+          { "name": "spanId", "type": "string" },
+          { "name": "parentSpanId", "type": "string", "default": "" },
+          { "name": "tags", "type": { "type": "map", "values": "string" }, "default": {} }
+        ]
+      }
+    }
+  ]
+}

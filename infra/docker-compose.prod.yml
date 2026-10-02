@@ -1,0 +1,158 @@
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  kafka-1:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.5.0
+    depends_on:
+      - kafka-1
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-1:9092
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: livescope
+      POSTGRES_PASSWORD: livescope
+      POSTGRES_DB: livescope
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/001_events.sql:/docker-entrypoint-initdb.d/001_events.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U livescope"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  gateway:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: gateway
+    ports:
+      - "8080:8080"
+      - "50051:50051"
+    environment:
+      KAFKA_BROKERS: kafka-1:9092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+    depends_on:
+      - kafka-1
+      - schema-registry
+  projection-engine:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: projection-engine
+    ports:
+      - "8082:8082"
+    environment:
+      PORT: "8082"
+      KAFKA_BROKERS: kafka-1:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgres://livescope:livescope@postgres:5432/livescope
+    depends_on:
+      kafka-1:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+  stream-engine:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: stream-engine
+    ports:
+      - "8083:8083"
+    environment:
+      PORT: "8083"
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+  websocket-gateway:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: websocket-gateway
+    ports:
+      - "8084:8084"
+    environment:
+      PORT: "8084"
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev-secret
+    depends_on:
+      redis:
+        condition: service_healthy
+  anomaly-detector:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: anomaly-detector
+    ports:
+      - "8085:8085"
+    environment:
+      PORT: "8085"
+  region-simulator:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: region-simulator
+    ports:
+      - "8086:8086"
+    environment:
+      PORT: "8086"
+  chaos-engine:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: chaos-engine
+    ports:
+      - "8090:8090"
+    environment:
+      PORT: "8090"
+  dashboard:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      args:
+        PACKAGE: dashboard
+    ports:
+      - "4173:4173"

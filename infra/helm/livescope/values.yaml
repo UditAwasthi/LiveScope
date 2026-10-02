@@ -1,0 +1,21 @@
+image: livescope:local
+services:
+  - name: gateway
+    port: 8080
+    extraPorts:
+      - 50051
+  - name: projection-engine
+    port: 8082
+  - name: stream-engine
+    port: 8083
+  - name: websocket-gateway
+    port: 8084
+  - name: anomaly-detector
+    port: 8085
+  - name: region-simulator
+    port: 8086
+  - name: chaos-engine
+    port: 8090
+  - name: dashboard
+    port: 4173
+    probe: /

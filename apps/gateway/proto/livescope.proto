@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package livescope.v1;
+
+service Ingest {
+  rpc BatchEvents (stream EventEnvelope) returns (Ack);
+}
+
+message EventEnvelope {
+  string id = 1;
+  string type = 2;
+  string entity = 3;
+  string entity_id = 4;
+  int64 timestamp = 5;
+  map<string, int64> vector_clock = 6;
+  string payload_json = 7;
+  string org_id = 8;
+  string project_id = 9;
+  string environment = 10;
+  string region = 11;
+}
+
+message Ack {
+  bool accepted = 1;
+  string event_id = 2;
+}

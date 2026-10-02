@@ -1,0 +1,44 @@
+{{- range .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: livescope-{{ .name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: livescope-{{ .name }}
+  template:
+    metadata:
+      labels:
+        app: livescope-{{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: {{ $.Values.image }}
+          ports:
+            - containerPort: {{ .port }}
+            {{- range .extraPorts }}
+            - containerPort: {{ . }}
+            {{- end }}
+          env:
+            - name: PORT
+              value: "{{ .port }}"
+          livenessProbe:
+            httpGet:
+              path: {{ .probe | default "/healthz" }}
+              port: {{ .port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: livescope-{{ .name }}
+spec:
+  selector:
+    app: livescope-{{ .name }}
+  ports:
+    - name: http
+      port: {{ .port }}
+      targetPort: {{ .port }}
+{{- end }}

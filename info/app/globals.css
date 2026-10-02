@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #07080a;
+  color: #ffffff;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.font-mono {
+  font-family: 'Geist Mono', monospace;
+}
+
+.text-warm-gradient {
+  background: linear-gradient(to right, #ff2f3a, #ff6b4a, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-warm-gradient {
+  background: linear-gradient(to right, #ff2f3a, #ff6b4a, #ffb347);
+}
+
+.aurora-blur {
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 47, 58, 0.15) 0%, rgba(255, 107, 74, 0.05) 50%, transparent 100%);
+  filter: blur(100px);
+  z-index: -1;
+}
+
+.glass-panel {
+  background: rgba(15, 17, 20, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.keycap-button {
+  background-color: #e6e6e6;
+  color: #2f3031;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 0 0 #b3b3b3, 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.keycap-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 0 #b3b3b3, 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.nav-pill {
+  background: rgba(15, 17, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+.loop-step:hover .loop-number {
+  color: #ff6b4a;
+}

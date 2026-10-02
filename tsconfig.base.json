@@ -3,12 +3,20 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "CommonJS",
+    "lib": ["ES2022"],
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "declarationMap": true,
+    "sourceMap": true,
     "outDir": "dist",
     "esModuleInterop": true,
     "moduleResolution": "Node",
+    "types": ["node"],
+    "skipLibCheck": true,
     "ignoreDeprecations": "6.0"
   }
 }
