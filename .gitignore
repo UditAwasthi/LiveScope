@@ -6,6 +6,9 @@ dist/
 build/
 *.tsbuildinfo
 docs/
+brag-output/
+brag/
+brag-output-2026-10-03-110500/
 # Logs
 logs
 *.log

@@ -99,7 +99,7 @@ The reliability loop is evidence-gated and policy-gated in code. A rules investi
 > Prerequisites: Docker, Node.js 20+, pnpm 8+.
 
 ```bash
-git clone https://github.com/yourusername/livescope.git
+git clone https://github.com/UditAwasthi/livescope.git
 cd livescope
 
 # Start infrastructure (Kafka, Schema Registry)
